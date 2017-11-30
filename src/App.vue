@@ -29,30 +29,36 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   @import "./assets/theme.less";
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.app-bottom{
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 100;
-}
-  .newColor{
-       background: #fff;
-      .mu-buttom-item-wrapper{
-         background: #fff;
-         color: #ce3d3e;
-         .mu-bottom-item-text{
-           color: #ce3d3e !important;
-         }
-      }
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-
-
+  .app-bottom{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    .mu-paper{
+      background: #212121;
+      .mu-bottom-nav{
+        background: #212121;
+        .mu-buttom-item{
+          color: #ccc;
+        }
+      }
+    }
+    .mu-bottom-item-active{
+      background: #212121;
+      .mu-bottom-item-icon{
+        color: #fff !important;
+      }
+      .mu-bottom-item-text{
+        color: #fff !important;
+      }
+    }
+  }
 </style>

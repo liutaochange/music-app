@@ -13,18 +13,27 @@
       </mu-tabs>
     </div>
     <div class="default-view">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
+      <first :is="activeTab" keep-alive></first>
     </div>
   </div>
 </template>
 <script>
+  //导入子组件
+  import recommend from './recommend';
+  import songList from './songList';
+  import host from './host';
+  import rank from './rank';
   export default {
     data () {
       return {
         activeTab: 'recommend' //默认打开第一个  个性推荐
       }
+    },
+    components: {
+      recommend,
+      songList,
+      host,
+      rank
     },
     created () {
       // created函数 监测路由信息,防止页面刷新tab高亮错误
