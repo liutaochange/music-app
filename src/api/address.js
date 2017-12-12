@@ -12,5 +12,9 @@ export default {
   //获取推荐MV
   getMv:'personalized/mv',
   //获取主播电台
-  getDjProgram:'personalized/djprogram'
+  getDjProgram:'personalized/djprogram',
+  //获取全部歌单
+  getCatlist:'playlist/catlist',
+  //获取分类歌单列表
+  getPlayList:'/top/playlist'
 }

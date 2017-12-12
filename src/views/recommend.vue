@@ -48,6 +48,22 @@
         </mu-row>
       </div>
     </section>
+    <section class="con">
+      <div class="thePlaylist">
+        <div class="rLeft">
+          <img width="20" src="../../static/images/cm2_discover_icn_newest@2x.png" />最新音乐
+        </div>
+        <div class="rbtn"  data-t="1">更多></div>
+      </div>
+      <div class="imgList">
+        <mu-row gutter>
+          <mu-col width="33" tablet="33" desktop="33" v-for="item in newMusic" :key="item.id">
+            <img :src="item.picUrl" alt="图片">
+            <p class="name">{{item.name}}</p>
+          </mu-col>
+        </mu-row>
+      </div>
+    </section>
   </div>
 </template>
 <script>
@@ -69,7 +85,10 @@
         },
         accountHeight:"",
         thisday: (new Date()).getDate(),
-        songList:""
+        songList:"",
+        newMusic:"",
+        mvCon:"",
+        hostCon:""
       }
     },
     components: {
