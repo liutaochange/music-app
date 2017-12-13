@@ -32,6 +32,7 @@
         </mu-col>
       </mu-row>
     </section>
+    <!--推荐歌单-->
     <section class="con">
       <div class="thePlaylist">
           <div class="rLeft">
@@ -48,6 +49,7 @@
         </mu-row>
       </div>
     </section>
+    <!--最新音乐-->
     <section class="con">
       <div class="thePlaylist">
         <div class="rLeft">
@@ -58,6 +60,43 @@
       <div class="imgList">
         <mu-row gutter>
           <mu-col width="33" tablet="33" desktop="33" v-for="item in newMusic" :key="item.id">
+            <img :src="item.song.album.picUrl" alt="图片">
+            <p class="nameFirst">{{item.name}}</p>
+            <p class="remark">{{item.song.artists[0].name}}</p>
+          </mu-col>
+        </mu-row>
+      </div>
+    </section>
+    <!--推荐MV-->
+    <section class="con">
+      <div class="thePlaylist">
+        <div class="rLeft">
+          <img width="20" src="../../static/images/cm2_discover_icn_newest@2x.png" />推荐MV
+        </div>
+        <div class="rbtn"  data-t="1">更多></div>
+      </div>
+      <div class="imgList">
+        <mu-row gutter>
+          <mu-col width="50" tablet="50" desktop="50" v-for="item in mvCon" :key="item.id">
+            <img :src="item.picUrl" alt="图片">
+            <p class="nameFirst">{{item.name}}</p>
+            <p class="remark">{{item.artists[0].name}}</p>
+          </mu-col>
+        </mu-row>
+      </div>
+    </section>
+
+    <!--主播电台-->
+    <section class="con">
+      <div class="thePlaylist">
+        <div class="rLeft">
+          <img width="20" src="../../static/images/cm2_discover_icn_newest@2x.png" />主播电台
+        </div>
+        <div class="rbtn"  data-t="1">更多></div>
+      </div>
+      <div class="imgList">
+        <mu-row gutter>
+          <mu-col width="33" tablet="33" desktop="33" v-for="item in hostCon" :key="item.id">
             <img :src="item.picUrl" alt="图片">
             <p class="name">{{item.name}}</p>
           </mu-col>
@@ -125,7 +164,10 @@
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
-          that.songList = getData.result;
+          if (getData.result.length>9){
+            getData.result.length = 9;
+          }
+          that.newMusic = getData.result;
         }else{
           console.log("error")
         }
@@ -135,7 +177,7 @@
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
-          that.songList = getData.result;
+          that.mvCon = getData.result;
         }else{
           console.log("error")
         }
@@ -145,7 +187,7 @@
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
-          that.songList = getData.result;
+          that.hostCon = getData.result;
         }else{
           console.log("error")
         }
@@ -247,6 +289,28 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .nameFirst{
+        float: left;
+        margin-top: 5px;
+        width: 100%;
+        overflow: hidden;
+        line-height: 1;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+      .remark{
+        float: left;
+        margin-top: -5px;
+        width: 100%;
+        overflow: hidden;
+        line-height: 1;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
       }
     }

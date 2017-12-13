@@ -29,4 +29,12 @@ export const getPlayList = (limit,offset,type)=>request.get(API.getPlayList,{
   "offset":offset,
   "type":type
 });
+//获取主播电台公共接口
+export const getDjradio = ()=>request.get(API.getDjradio);
+//获取精彩节目
+export const getDjradioPro = ()=>request.get(API.getDjradioPro);
+//精选电台
+export const getDjradioRec = ()=>request.get(API.getDjradioRec);
+//热门电台
+export const getDjradioHot = ()=>request.get(API.getDjradioHot);
 

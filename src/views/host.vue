@@ -6,6 +6,7 @@
   </div>
 </template>
 <script>
+  import {getDjradio,getDjradioPro,getDjradioRec,getDjradioHot} from "../api/index"
   export default{
     data(){
       return {
