@@ -1,12 +1,17 @@
 # vue
 
-> A Vue.js project
+# A Vue.js project
 
-### 此项目需要先启动[后端项目](https://github.com/liutaochange/music-server)。后端项目启动后，再启动前端项目
+## 此项目需要先启动[后端项目](https://github.com/liutaochange/music-server)。
 
-## Build Setup
+# 假设你后端项目已经启动成功
 
-``` bash
+下载项目到本地
+
+git clone https://github.com/liutaochange/vueMusicApp.git
+
+cd vueMusicApp
+
 # install dependencies
 npm install
 
@@ -27,6 +32,6 @@ npm run e2e
 
 # run all tests
 npm test
-```
+
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
