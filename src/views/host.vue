@@ -1,75 +1,71 @@
 <template>
   <div>
     <div class="box">
+      <!--电台分类-->
       <section class="tab_cnt">
-        <swiper :options="swiperOption" ref="mySwiper">
-          <swiper-slide v-for="(item,index) in banner" :key="index">
+        <swiper :options="swiperOption" ref="mySwiper" class="swiper_wamp">
+          <swiper-slide v-for="(item,index) in [1,2,3]" :key="index">
             <div class="demo-grid">
               <mu-row gutter>
-                <mu-col width="25" tablet="25" desktop="25">col-100<br/>tablet-50<br/>desktop-33</mu-col>
+                <mu-col width="25" tablet="25" desktop="25" v-if="(idx<item*8)&&(idx>=(item-1)*8)" v-for="(items,idx) in catelist" :key="idx">
+                  <img :src="items.pic56x56Url" alt="图片" width="52" height="52">
+                  <p class="djName">{{items.name}}</p>
+                </mu-col>
               </mu-row>
             </div>
           </swiper-slide>
           <div class="swiper-pagination"  slot="pagination"></div>
         </swiper>
-
-
-
-
-        <!--<block wx:if="{{djcate.loading}}">-->
-          <!--<swiper indicator-dots="true" circular="true">-->
-            <!--<swiper-item wx:for-items="{{[1,2,3]}}" class="djcatewrap">-->
-              <!--<view bindtap="djradiotype" wx:if="{{(idx<item*8)&&(idx>=(item-1)*8)}}" class="djcatelist" data-djtype="{{re.id}}" wx:for-items="{{djcate.categories}}" wx:for-item="re" wx:for-index="idx">-->
-                <!--<img src="{{re.pic56x56Url}}" class="slide-img" width="56" height="56" />-->
-                <!--<view>{{re.name}}</view>-->
-              <!--</view>-->
-            <!--</swiper-item>-->
-          <!--</swiper>-->
-          <!--<view class="listheader">{{djrecs.rec_p.name}}</view>-->
-          <!--<view wx:for="{{djrecs.rec_p.programs}}" class="playlist" wx:for-item="re" wx:key="{{re}}">-->
-            <!--<navigator url="../program/index?id={{re.mainSong.id}}&pid={{re.id}}">-->
-              <!--<view class="flexlist  flex-img">-->
-                <!--<view class="flexleft fl-img">-->
-                  <!--<img src="{{re.coverUrl}}?param=100y100" class="album_cover" />-->
-                <!--</view>-->
-                <!--<view class="flexlist">-->
-                  <!--<view class="flexmain">-->
-                    <!--<view>{{re.name}}</view>-->
-                    <!--<view class="relistdes">{{re.reason}}</view>-->
-                  <!--</view>-->
-                <!--</view>-->
-              <!--</view>-->
-            <!--</navigator>-->
-          <!--</view>-->
-          <!--<view class="listheader">{{djrecs.rec_d.name}}</view>-->
-          <!--<view class='flex-boxlist'>-->
-            <!--<view class="tl_cnt cateplaylist" wx:for-items="{{djrecs.rec_d.djRadios}}" wx:for-index="idx" wx:if="{{idx<6}}" wx:key="{{item.id}}">-->
-              <!--<navigator url="../djradio/index?id={{item.id}}">-->
-                <!--<view class="cover">-->
-                  <!--<img src="{{item.picUrl}}?param=200y200" class="music_cover" />-->
-                <!--</view>-->
-                <!--<text class="name">{{item.copywriter}}</text>-->
-              <!--</navigator>-->
-            <!--</view>-->
-          <!--</view>-->
-          <!--<view class="listheader">热门电台</view>-->
-          <!--<view class='flex-boxlist flex-two'>-->
-            <!--<view class="tl_cnt cateplaylist" wx:for-items="{{djlist.list.djRadios}}" wx:key="{{item.id}}">-->
-              <!--<navigator url="../djradio/index?id={{item.id}}">-->
-                <!--<view class="cover">-->
-                  <!--<img src="{{item.picUrl}}?param=200y200" class="music_cover" />-->
-                  <!--<text>{{item.creator.nickname}}</text>-->
-                  <!--<view class="img_playcount">-->
-                    <!--<template is="img" data="{{src:'../../../img/cm2_list_icn_subscribe@2x.png',width:24}}" />{{item.subCount}}订阅</view>-->
-                <!--</view>-->
-                <!--<text class="name">{{item.name}}</text>-->
-              <!--</navigator>-->
-            <!--</view>-->
-          <!--</view>-->
-          <!--<template wx:if="{{djlist.loading&&djlist.list.hasMore}}" is="loading" />-->
-        <!--</block>-->
-        <!--<template wx:else is="loading" />-->
       </section>
+      <div class="recommend_wamp">
+        <h1 class="title">{{recommend.name}}</h1>
+        <div class="rec_wamp">
+          <div class="rec_item" v-for="(item,index) in recommend.programs" :key="index">
+            <img :src="item.coverUrl" alt="图片" class="left_img">
+            <div class="text">
+              <p class="text_top">{{item.name}}</p>
+              <p class="text_bottom">{{item.reason}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--推荐节目-->
+      <div class="recommend_wamp">
+        <h1 class="title">{{recommend.name}}</h1>
+        <div class="rec_wamp">
+          <div class="rec_item" v-for="(item,index) in recommend.programs" :key="index">
+            <img :src="item.coverUrl" alt="图片" class="left_img">
+            <div class="text">
+              <p class="text_top">{{item.name}}</p>
+              <p class="text_bottom">{{item.reason}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--精选电台-->
+      <div class="recommend_wamp">
+        <h1 class="title">{{djcate.name}}</h1>
+        <div class="imgList">
+          <mu-row gutter>
+            <mu-col width="33" tablet="33" desktop="33" v-for="(item,index) in djcate.djRadios" :key="index">
+              <img :src="item.picUrl" alt="图片">
+              <p class="name">{{item.copywriter}}</p>
+            </mu-col>
+          </mu-row>
+        </div>
+      </div>
+      <!--热门电台-->
+      <div class="recommend_wamp">
+        <h1 class="title">热门电台</h1>
+        <div class="imgList">
+          <mu-row gutter>
+            <mu-col width="50" tablet="50" desktop="50" v-for="(item,index) in hotDj.list.djRadios" :key="index">
+              <img :src="item.picUrl" alt="图片">
+              <p class="name">{{item.name}}</p>
+            </mu-col>
+          </mu-row>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -78,7 +74,25 @@
   export default{
     data(){
       return {
-        msg: "host"
+        swiperOption: {
+          initialSlide :0,
+          autoplay: 3500,
+          direction : 'horizontal',
+          pagination : '.swiper-pagination',
+          paginationClickable :true,
+          mousewheelControl : false,
+          observeParents:true,
+          loop:true
+        },
+        catelist:"",//主播电台分类
+        recommend:"",//推荐节目
+        djcate:"",//精选电台
+        hotDj: {  //热门电台
+          idx: 2,
+          list: "",
+          limit: 20,
+          offset: 0
+        }
       }
     },
     mounted(){
@@ -87,7 +101,7 @@
       getDjradio().then(res => {
         if(res.status == 200){
           let getData = res.data;
-          that.banner = getData.banners;
+          _this.catelist = getData.categories;
         }else{
           console.log("error")
         }
@@ -95,9 +109,7 @@
       //获取推荐节目
       getDjradioPro().then(res => {
         if(res.status == 200){
-          let getData = res.data;
-          console.log(res)
-          that.songList = getData.result;
+          _this.recommend = res.data;
         }else{
           console.log("error")
         }
@@ -106,11 +118,10 @@
       getDjradioRec().then(res => {
         if(res.status == 200){
           let getData = res.data;
-          console.log(res)
-          if (getData.result.length>9){
-            getData.result.length = 9;
+          if (getData.djRadios.length>6){
+            getData.djRadios.length = 6;
           }
-          that.newMusic = getData.result;
+          _this.djcate = getData;
         }else{
           console.log("error")
         }
@@ -119,8 +130,8 @@
       getDjradioHot().then(res => {
         if(res.status == 200){
           let getData = res.data;
-          console.log(res)
-          that.mvCon = getData.result;
+          _this.hotDj.list = getData;
+          _this.hotDj.offset = getData.djRadios.length;
         }else{
           console.log("error")
         }
@@ -131,5 +142,109 @@
 <style lang="less" scoped>
   .box{
     text-align: center;
+    padding: 12px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    .tab_cnt{
+      padding-top: 12px;
+      .swiper_wamp{
+        padding-bottom: 20px;;
+      }
+      .djName{
+        float: left;
+        margin-top: -5px;
+        width:100%;
+        font-size: 12px;
+      }
+    }
+  }
+  .title{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    text-indent: 8px;
+    position: relative;
+    text-align: left;
+    font-size: 15px;
+  }
+  .title:before{
+    background-color:red;
+    width: 2px;
+    height: 16px;
+    content:"";
+    vertical-align:middle;
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+  .recommend_wamp{
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    .rec_wamp{
+      width: 100%;
+      overflow: hidden;
+      list-style: none;
+      .rec_item{
+        width: 100%;
+        float: left;
+        margin-bottom: 5px;
+        .left_img{
+          width: 50px;
+          height: 50px;
+          float: left;
+        }
+        .text{
+          margin-left: 58px;
+          height: 50px;
+          position: relative;
+          overflow: hidden;
+          p{
+            float: left;
+            width: 100%;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            text-align: left;
+            line-height: 1;
+          }
+          .text_top{
+            font-size: 15px;
+            color: #000;
+            margin-top: 5px;
+            margin-bottom: 8px;
+          }
+          .text_bottom{
+            font-size: 13px;
+            color: #999;
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
+  .imgList{
+    width: 100%;
+    padding: 12px 12px 0 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    .col {
+      margin-bottom: 8px;
+      img {
+        float: left;
+        width: 100%;
+      }
+      .name {
+        text-align: left;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
   }
 </style>
