@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+### 此项目需要先启动[后端项目](https://github.com/liutaochange/music-server)。后端项目启动后，再启动前端项目
+
 ## Build Setup
 
 ``` bash
