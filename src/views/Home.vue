@@ -37,7 +37,7 @@
     },
     created () {
       // created函数 监测路由信息,防止页面刷新tab高亮错误
-      var tmpArr = this.$route.path.split('/')
+      var tmpArr = this.$route.path.split('/');
       if (tmpArr[1] === 'index') {
         this.handleTabChange(tmpArr[2])
       }
@@ -46,7 +46,7 @@
     watch: {
       '$route' (to, from) {
         const path = to.path
-        var tmpArr = path.split('/')
+        var tmpArr = path.split('/');
         if (tmpArr[1] === 'index') {
           this.handleTabChange(tmpArr[2])
         }
@@ -55,7 +55,7 @@
     methods: {
       handleTabChange (val) {
         this.activeTab = val
-        this.$router.push({ path: '/' + val })
+        this.$router.push({ path: '/index/' + val })
       }
     }
   }

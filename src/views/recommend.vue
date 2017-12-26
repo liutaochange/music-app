@@ -13,19 +13,19 @@
     <section class="recomdBox">
       <mu-row gutter>
         <mu-col width="33" tablet="33" desktop="33">
-          <div class="recn_ico">
+          <div class="recn_ico"  @click="switchViews(1)">
             <img src="../../static/images/cm2_discover_icn_fm-ip6@2x.png" alt="图片">
           </div>
           <p>私人FM</p>
         </mu-col>
         <mu-col width="33" tablet="33" desktop="33">
-          <div class="recn_ico" :style="{height:accountHeight+'px'}" id="accountCenter">
+          <div class="recn_ico" :style="{height:accountHeight+'px'}" id="accountCenter" @click="switchViews(2)">
             <span>{{thisday}}</span>
           </div>
           <p>每日歌曲推荐</p>
         </mu-col>
         <mu-col width="33" tablet="33" desktop="33">
-          <div class="recn_ico">
+          <div class="recn_ico"  @click="switchViews(3)">
             <img src="../../static/images/cm2_discover_icn_upbill-ip6@2x.png" alt="图片">
           </div>
           <p>云音乐热歌榜</p>
@@ -198,10 +198,36 @@
         _this.getHeight()
       }
     },
+    // watch函数监测路由的变化,控制页面跳转
+    watch: {
+      '$route' (to, from) {
+        const path = to.path
+        var tmpArr = path.split('/')
+        if (tmpArr[1] === 'index') {
+          this.switchViews(tmpArr[2])
+        }
+      }
+    },
     methods: {
-      getHeight: function(){
+      getHeight:function(){
         let obj = document.getElementById("accountCenter");
         this.accountHeight = obj.clientWidth;
+      },
+      switchViews:function(type){
+        var _this = this;
+        switch (type){
+          case 1:
+            _this.$router.push({ path: '/fm'})
+            break;
+          case 2:
+            _this.$router.push({ path: '/playlist'})
+            break;
+          case 3:
+            _this.$router.push({ path: '/recsongs' })
+            break;
+          default:
+            break;
+        }
       }
     }
   }
