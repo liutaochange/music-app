@@ -5,7 +5,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
-import api from '../api'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -28,7 +27,9 @@ const store = new Vuex.Store({
     tmpCurrentTime: 0,
     durationTime: 0,
     bufferedTime: 0,
-    change: false   // 判断是更改的时间还是播放的时间
+    change: false,   // 判断是更改的时间还是播放的时间
+    home_index: "recommend",
+    index_value: "findmusic"
   },
   getters: {
     audio: state => state.audio,
@@ -50,6 +51,12 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    setIndex(state,index){
+      state.home_index = index;
+    },
+    setIndexValue(state,index){
+      state.index_value = index;
+    },
     play (state) {
       state.playing = true
     },
@@ -156,17 +163,6 @@ const store = new Vuex.Store({
         console.log('cancel')
         source.cancel()
       }
-      commit('openLoading')
-      Axios.get(api.getSong(id)).then(res => {
-          // 统一数据模型，方便后台接口的改变
-          var url = res.data.data[0].url
-          commit('setAudio')
-          commit('setLocation', url)
-        })
-        .catch((error) => {     // 错误处理
-          console.log(error)
-          window.alert('获取歌曲信息出错！')
-        })
     }
   }
 })

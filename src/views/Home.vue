@@ -23,10 +23,11 @@
   import songList from './songList';
   import host from './host';
   import rank from './rank';
+  import store from '../store/index'
   export default {
     data () {
       return {
-        activeTab: 'recommend' //默认打开第一个  个性推荐
+        activeTab: "" //默认打开第一个  个性推荐
       }
     },
     components: {
@@ -36,10 +37,12 @@
       rank
     },
     created () {
+      const home_index = this.$store.state.home_index;
+      this.activeTab = home_index;
       // created函数 监测路由信息,防止页面刷新tab高亮错误
       var tmpArr = this.$route.path.split('/');
       if (tmpArr[1] === 'index') {
-        this.handleTabChange(tmpArr[2])
+        this.handleTabChange(home_index)
       }
     },
     // watch函数监测路由的变化,保持tab面板的高亮位置正确
@@ -54,8 +57,9 @@
     },
     methods: {
       handleTabChange (val) {
-        this.activeTab = val
-        this.$router.push({ path: '/index/' + val })
+        this.activeTab = val;
+        this.$store.commit('setIndex',val);
+        this.$router.push({ path: '/index/' + val });
       }
     }
   }
