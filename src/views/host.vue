@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box">
+    <div class="box" v-show="isShow">
       <!--电台分类-->
       <section class="tab_cnt">
         <swiper :options="swiperOption" ref="mySwiper" class="swiper_wamp">
@@ -67,9 +67,11 @@
         </div>
       </div>
     </div>
+    <loading v-show="!isShow"></loading>
   </div>
 </template>
 <script>
+  import loading from "../components/loading"
   import {getDjradio,getDjradioPro,getDjradioRec,getDjradioHot} from "../api/index"
   export default{
     data(){
@@ -92,13 +94,17 @@
           list: "",
           limit: 20,
           offset: 0
-        }
+        },
+        isShow:false
       }
+    },
+    components: {
+      loading
     },
     mounted(){
       var _this = this;
       // 获取电台分类
-      getDjradio().then(res => {
+      const promiseDj = getDjradio().then(res => {
         if(res.status == 200){
           let getData = res.data;
           _this.catelist = getData.categories;
@@ -107,7 +113,7 @@
         }
       })
       //获取推荐节目
-      getDjradioPro().then(res => {
+      const promiseDjradio = getDjradioPro().then(res => {
         if(res.status == 200){
           _this.recommend = res.data;
         }else{
@@ -115,7 +121,7 @@
         }
       })
       //获取精选电台
-      getDjradioRec().then(res => {
+      const promiseDjrec = getDjradioRec().then(res => {
         if(res.status == 200){
           let getData = res.data;
           if (getData.djRadios.length>6){
@@ -127,7 +133,7 @@
         }
       })
       //获取热门电台
-      getDjradioHot().then(res => {
+      const promiseDjhot = getDjradioHot().then(res => {
         if(res.status == 200){
           let getData = res.data;
           _this.hotDj.list = getData;
@@ -136,6 +142,11 @@
           console.log("error")
         }
       })
+      Promise.all([promiseDj, promiseDjradio, promiseDjrec, promiseDjhot]).then(values => {
+        _this.isShow = true;
+      }, reason => {
+        console.log("error")
+      });
     }
   }
 </script>

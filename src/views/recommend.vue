@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--banner-->
-    <section class="bannerBox">
+    <section class="bannerBox" v-show="isShow">
       <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="(item,index) in banner" :key="index">
           <img :src="item.pic" alt="图片">
@@ -10,7 +10,7 @@
       </swiper>
     </section>
     <!--每日推荐-->
-    <section class="recomdBox">
+    <section class="recomdBox" v-show="isShow">
       <mu-row gutter>
         <mu-col width="33" tablet="33" desktop="33">
           <div class="recn_ico"  @click="switchViews(1)">
@@ -33,7 +33,7 @@
       </mu-row>
     </section>
     <!--推荐歌单-->
-    <section class="con">
+    <section class="con" v-show="isShow">
       <div class="thePlaylist">
           <div class="rLeft">
             <img width="20" src="../../static/images/cm2_discover_icn_recmd@2x.png" />推荐歌单
@@ -50,7 +50,7 @@
       </div>
     </section>
     <!--最新音乐-->
-    <section class="con">
+    <section class="con" v-show="isShow">
       <div class="thePlaylist">
         <div class="rLeft">
           <img width="20" src="../../static/images/cm2_discover_icn_newest@2x.png" />最新音乐
@@ -68,7 +68,7 @@
       </div>
     </section>
     <!--推荐MV-->
-    <section class="con">
+    <section class="con" v-show="isShow">
       <div class="thePlaylist">
         <div class="rLeft">
           <img width="20" src="../../static/images/cm2_discover_icn_newest@2x.png" />推荐MV
@@ -87,7 +87,7 @@
     </section>
 
     <!--主播电台-->
-    <section class="con">
+    <section class="con" v-show="isShow">
       <div class="thePlaylist">
         <div class="rLeft">
           <img width="20" src="../../static/images/cm2_discover_icn_newest@2x.png" />主播电台
@@ -103,9 +103,11 @@
         </mu-row>
       </div>
     </section>
+    <loading v-show="!isShow"></loading>
   </div>
 </template>
 <script>
+  import loading from '../components/loading'
   import { getDefaultBanner, getPersonalized, getNewSong, getMv, getDjProgram } from '../api/index'
   import dialogOut from '../components/diaLog'
   export default {
@@ -127,21 +129,23 @@
         songList:"",
         newMusic:"",
         mvCon:"",
-        hostCon:""
+        hostCon:"",
+        isShow:false
       }
     },
     components: {
-      dialogOut
+      dialogOut,
+      loading
     },
     computed: {
       swiper() {
         return this.$refs.mySwiper.swiper
       }
     },
-    mounted() {
+    created(){
       const that = this;
       // 获取banner
-      getDefaultBanner().then(res => {
+      const promise1 = getDefaultBanner().then(res => {
         if(res.status == 200){
           let getData = res.data;
           that.banner = getData.banners;
@@ -150,7 +154,7 @@
         }
       })
       //获取推荐歌单
-      getPersonalized().then(res => {
+      const promise2 = getPersonalized().then(res => {
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
@@ -160,7 +164,7 @@
         }
       })
       //获取最新音乐
-      getNewSong().then(res => {
+      const promise3 = getNewSong().then(res => {
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
@@ -173,7 +177,7 @@
         }
       })
       //获取推荐MV
-      getMv().then(res => {
+      const promise4 = getMv().then(res => {
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
@@ -183,7 +187,7 @@
         }
       })
       //获取主播电台
-      getDjProgram().then(res => {
+      const promise5 = getDjProgram().then(res => {
         if(res.status == 200){
           let getData = res.data;
           console.log(res)
@@ -192,11 +196,17 @@
           console.log("error")
         }
       })
-      this.getHeight();
-      var _this = this;
-      window.onresize= function () {
-        _this.getHeight()
-      }
+      Promise.all([promise1, promise2, promise3, promise4, promise5]).then(values => {
+        that.isShow = true;
+        setTimeout(function(){
+          that.getHeight();
+          window.onresize= function () {
+            that.getHeight()
+          }
+        },20)
+      }, reason => {
+        console.log(reason)
+      });
     },
     // watch函数监测路由的变化,控制页面跳转
     watch: {

@@ -1,48 +1,61 @@
 <template>
-    <div class="con">
-      <section class="official_list">
-        <h1 class="title">云音乐官方榜</h1>
-        <div class="rec_wamp">
-          <div class="rec_item" v-for="(item,index) in topList.list" :key="index">
-            <img :src="item.coverImgUrl" alt="图片" class="left_img">
-            <div class="text">
-              <p v-for="(items,idx) in item.tracks" :key="idx">
-                {{idx+1}}．{{items.first}} - <span>{{items.second}}</span>
-              </p>
+    <div>
+      <div class="con" v-show="isShow">
+        <section class="official_list">
+          <h1 class="title">云音乐官方榜</h1>
+          <div class="rec_wamp">
+            <div class="rec_item" v-for="(item,index) in topList.list" :key="index">
+              <img :src="item.coverImgUrl" alt="图片" class="left_img">
+              <div class="text">
+                <p v-for="(items,idx) in item.tracks" :key="idx">
+                  {{idx+1}}．{{items.first}} - <span>{{items.second}}</span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="global_list">
-        <h1 class="title">全球榜</h1>
-        <div class="imgList">
-          <mu-row gutter>
-            <mu-col width="33" tablet="33" desktop="33" v-for="(item,index) in topList.list" :key="index">
-              <img :src="item.coverImgUrl" alt="图片">
-              <p class="name">{{item.name}}</p>
-            </mu-col>
-          </mu-row>
-        </div>
-      </section>
+        </section>
+        <section class="global_list">
+          <h1 class="title">全球榜</h1>
+          <div class="imgList">
+            <mu-row gutter>
+              <mu-col width="33" tablet="33" desktop="33" v-for="(item,index) in topList.list" :key="index">
+                <img :src="item.coverImgUrl" alt="图片">
+                <p class="name">{{item.name}}</p>
+              </mu-col>
+            </mu-row>
+          </div>
+        </section>
+      </div>
+      <loading v-show="!isShow"></loading>
     </div>
 </template>
 <script>
+  import loading from "../components/loading"
   import { getTopList } from "../api/index"
   export default{
     data(){
       return {
-        topList:""
+        topList:"",
+        isShow:false
       }
+    },
+    components: {
+      loading
     },
     mounted(){
       const _this = this;
-      getTopList().then(res => {
+      const promiseList = getTopList().then(res => {
         if(res.status == 200){
           _this.topList = res.data;
         }else{
           console.log("error")
         }
       })
+      Promise.all([promiseList]).then(values => {
+        _this.isShow = true;
+      }, reason => {
+        console.log("error")
+      });
     }
   }
 </script>

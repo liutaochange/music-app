@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-      <section class="con">
+      <section class="con" v-show="isShow">
         <div class="thePlaylist">
           <div class="rLeft">
             {{catelist.checked.name}}
@@ -18,9 +18,11 @@
           </mu-row>
         </div>
       </section>
+      <loading v-show="!isShow"></loading>
     </div>
 </template>
 <script>
+  import loading from '../components/loading'
   import {getCatlist,getPlayList} from "../api/index"
   export default{
     data(){
@@ -36,16 +38,20 @@
         catelist: {
           res: {},
           checked: {}
-        }
+        },
+        isShow:false
       }
     },
     methods: {
 
     },
+    components: {
+      loading
+    },
     mounted(){
       var that = this;
       //获取全部歌单
-      getCatlist().then(res => {
+      const pomiseList = getCatlist().then(res => {
         if(res.status == 200){
           let getData = res.data;
           that.catelist =  {
@@ -57,7 +63,7 @@
         }
       })
       //分类歌单列表
-      getPlayList(that.playlist.limit,that.playlist.offset,that.catelist.checked.name).then(res => {
+      const promisePlay = getPlayList(that.playlist.limit,that.playlist.offset,that.catelist.checked.name).then(res => {
         if(res.status == 200){
           if (!that.isadd) {
             that.playlist.list = res.data
@@ -71,6 +77,11 @@
           console.log("error")
         }
       })
+      Promise.all([pomiseList, promisePlay]).then(values => {
+        that.isShow = true;
+      }, reason => {
+        console.log("error")
+      });
     }
   }
 </script>

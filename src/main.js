@@ -7,6 +7,12 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import FastClick from 'fastclick' // 解决移动端300毫秒延迟
+if ('addEventListener' in document) {
+  document.addEventListener('DOMContentLoaded', function () {
+    FastClick.attach(document.body)
+  }, false)
+}
 Vue.use(VueAwesomeSwiper)
 Vue.use(MuseUI)
 Vue.config.productionTip = false
