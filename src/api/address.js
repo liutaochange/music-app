@@ -26,6 +26,9 @@ export default {
   //热门电台
   getDjradioHot:'/djradio/hot',
   //获取排行榜
-  getTopList:'/toplist/detail'
-
+  getTopList:'/toplist/detail',
+  //每日推荐
+  getRecommendSongs: '/recommend/songs',
+  //云音乐热歌榜
+  getHotList:'/playlist/detail'
 }

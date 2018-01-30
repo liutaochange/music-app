@@ -39,4 +39,11 @@ export const getDjradioRec = ()=>request.get(API.getDjradioRec);
 export const getDjradioHot = ()=>request.get(API.getDjradioHot);
 //获取排行榜
 export const getTopList = ()=>request.get(API.getTopList);
+//获取每日歌曲推荐
+export const getRecomendSongs = ()=>request.get(API.getRecommendSongs);
+//云音乐热歌榜
+export const getHotList = (id,limit)=>request.get(API.getHotList,{
+  "id":id,
+  "limit":limit
+});
 

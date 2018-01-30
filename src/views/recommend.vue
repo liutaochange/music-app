@@ -104,6 +104,7 @@
       </div>
     </section>
     <loading v-show="!isShow"></loading>
+    <dialogOut v-show="dialogOut" v-bind:dialog-msg="dialogMsg" :show.sync="dialogOut"></dialogOut>
   </div>
 </template>
 <script>
@@ -130,7 +131,9 @@
         newMusic:"",
         mvCon:"",
         hostCon:"",
-        isShow:false
+        isShow:false,
+        dialogOut:false,
+        dialogMsg:""
       }
     },
     components: {
@@ -227,7 +230,9 @@
         var _this = this;
         switch (type){
           case 1:
-            _this.$router.push({ path: '/fm'})
+            _this.dialogMsg = "此功能暂未开通，敬请期待"
+            _this.dialogOut = true;
+            //_this.$router.push({ path: '/fm'})
             break;
           case 2:
             _this.$router.push({ path: '/playlist'})

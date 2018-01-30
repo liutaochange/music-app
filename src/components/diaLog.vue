@@ -1,28 +1,32 @@
 <template>
   <div>
-    <mu-dialog :open="dialog" title="提示" @close="close">
-      {{msg}}
-      <mu-flat-button slot="actions" @click="close" primary label="取消"/>
-      <mu-flat-button slot="actions" primary @click="close" label="确定"/>
+    <mu-dialog :open="show" title="提示">
+      {{dialogMsg}}
+      <mu-flat-button label="确定" slot="actions" primary @click="close"/>
     </mu-dialog>
   </div>
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        dialog: false
+    props:{
+      show:{
+        type: Boolean,
+        default: true
+      },
+      dialogMsg:{
+        type:String,
+        default:''
       }
     },
-    props: ['msg','dialog'],
     methods: {
-      open () {
-        this.dialog = true
-      },
       close () {
-        this.dialog = false
+        this.$emit('update:show', false)
       }
     }
   }
 </script>
+
+<style lang="less" scoped>
+
+</style>
