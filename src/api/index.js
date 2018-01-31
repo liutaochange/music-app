@@ -25,9 +25,11 @@ export const getDjProgram = ()=> request.get(API.getDjProgram);
 export const getCatlist = ()=>request.get(API.getCatlist);
 //获取分类歌单列表
 export const getPlayList = (limit,offset,type)=>request.get(API.getPlayList,{
-  "limit":limit,
-  "offset":offset,
-  "type":type
+  params:{
+    "limit":limit,
+    "offset":offset,
+    "type":type
+  }
 });
 //获取主播电台分类
 export const getDjradio = ()=>request.get(API.getDjradio);
@@ -43,7 +45,9 @@ export const getTopList = ()=>request.get(API.getTopList);
 export const getRecomendSongs = ()=>request.get(API.getRecommendSongs);
 //云音乐热歌榜
 export const getHotList = (id,limit)=>request.get(API.getHotList,{
-  "id":id,
-  "limit":limit
+  params:{
+    "id":id,
+    "limit":limit
+  }
 });
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="headerTop">
       <div class="go_back" @click="goBack">
         <img src="../../static/images/go_back.png" alt="图片" />
@@ -82,36 +82,7 @@
   }
 </script>
 <style lang="less" scoped>
-  *{margin: 0;padding: 0}
-  .box-sizing{
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .headerTop {
-    width: 100%;
-    height: 40px;
-    background: #ce3d3e;
-    font-size: 14px;
-    line-height: 40px;
-    color: #FEFEFE;
-    text-align: center;
-    .go_back {
-      width: 25px;
-      height: 40px;
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      img {
-        width: 16px;
-        height: 20px;
-        display: block;
-        margin-left: 10px;
-        margin-top: 10px;
-      }
-    }
-  }
+  @import "../assets/common.less";
   #recs_header {
     width: 100%;
     overflow: hidden;
@@ -143,69 +114,6 @@
       .text-bg{
         width:100%;
         float: left;
-      }
-    }
-  }
-  .content{
-    width: 100%;
-    padding: 0 3%;
-    box-sizing: border-box;
-    .title{
-      width: 100%;
-      height: 28px;
-      overflow:hidden;
-      .play_img{
-        float: left;
-        width: 16px;
-        height: 16px;
-        margin-top: 6px;
-      }
-      .play_text{
-        float: left;
-        height: 28px;
-        line-height: 28px;
-        font-size: 14px;
-        width: auto;
-        padding: 0;
-        margin: 0 0 0 4px;
-      }
-    }
-    .con{
-      width: 100%;
-      overflow: hidden;
-      list-style: none;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-      .item{
-        float: left;
-        width: 100%;
-        height: 48px;
-        border-top: 1px solid #999;
-        overflow: hidden;
-        position: relative;
-        padding: 4px 0;
-        box-sizing: border-box;
-        .itenLeft{
-          float: left;
-          overflow: hidden;
-          .name{
-            font-size: 14px;
-            color: #000;
-          }
-          .words{
-            font-size: 13px;
-            color: #999;
-          }
-        }
-        .itemRight{
-          float: right;
-          .video_img{
-            display: block;
-            width: 40px;
-            vertical-align: middle;
-          }
-        }
       }
     }
   }
