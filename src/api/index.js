@@ -50,4 +50,12 @@ export const getHotList = (id,limit)=>request.get(API.getHotList,{
     "limit":limit
   }
 });
+//登录
+export const login = (phone,password)=>request.get(API.login,{
+  params:{
+    email: phone,
+    phone: phone,
+    password: password
+  }
+});
 

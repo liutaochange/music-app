@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Index from '@/views/Index'
 import Home from '@/views/Home'
 import Mine from '@/views/Mine'
 import Fm from '@/views/Fm'
 import PlayList from '@/views/PlayList'
-import  RecSongs from '@/views/Recsongs'
+import RecSongs from '@/views/Recsongs'
+import Login from '@/views/Login'
 
 Vue.use(Router)
 
@@ -61,6 +61,11 @@ export default new Router({
       path:'/recsongs',
       name:'RecSongs',
       component: RecSongs
+    },
+    {
+      path:'/login',
+      name:'login',
+      component: Login
     }
   ]
 })

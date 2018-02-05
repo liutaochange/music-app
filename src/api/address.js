@@ -30,5 +30,7 @@ export default {
   //每日推荐
   getRecommendSongs: '/recommend/songs',
   //云音乐热歌榜
-  getHotList:'/playlist/detail'
+  getHotList:'/playlist/detail',
+  //登录
+  login:'/login/cellphone'
 }

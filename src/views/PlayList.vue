@@ -63,8 +63,11 @@
           let getData = res.data;
           _this.isShow = true;
           if(getData.code==301){
-            _this.dialogMsg = "请求失败，请重试"
+            _this.dialogMsg = "尚未登录，请先登录";
             _this.dialogOut = true;
+            setTimeout(function(){
+              _this.$router.push({ path: '/login'});
+            },1500)
             return false;
           }
           _this.songsList = getData.recommend;

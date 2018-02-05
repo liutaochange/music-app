@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import Toast from 'vue-easy-toast'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import FastClick from 'fastclick' // 解决移动端300毫秒延迟
@@ -16,6 +17,7 @@ if ('addEventListener' in document) {
 }
 Vue.use(VueAwesomeSwiper)
 Vue.use(MuseUI)
+Vue.use(Toast)
 Vue.config.productionTip = false
 function IsPC() {
   var userAgentInfo = navigator.userAgent;
