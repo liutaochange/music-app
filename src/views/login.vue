@@ -23,7 +23,9 @@
     data(){
       return {
         phone: '',
-        password:''
+        password:'',
+        model: 12,
+        status: ''
       }
     },
     methods:{
@@ -70,6 +72,12 @@
       width: 80%;
       display: block;
       margin: 20px auto;
+    }
+    .mu-text-field{
+      width: 90% !important;
+    }
+    .mu-text-field-content{
+      width: 100% !important;
     }
   }
   #my-toast .et-top{
