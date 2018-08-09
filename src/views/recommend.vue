@@ -112,28 +112,28 @@
   import { getDefaultBanner, getPersonalized, getNewSong, getMv, getDjProgram } from '../api/index'
   import dialogOut from '../components/diaLog'
   export default {
-    data(){
+    data () {
       return {
-        banner:"",
+        banner: '',
         swiperOption: {
-          initialSlide :0,
+          initialSlide: 0,
           autoplay: 2500,
-          direction : 'horizontal',
-          pagination : '.swiper-pagination',
-          paginationClickable :true,
-          mousewheelControl : false,
-          observeParents:true,
-          loop:true
+          direction: 'horizontal',
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          mousewheelControl: false,
+          observeParents: true,
+          loop: true
         },
-        accountHeight:"",
+        accountHeight: '',
         thisday: (new Date()).getDate(),
-        songList:"",
-        newMusic:"",
-        mvCon:"",
-        hostCon:"",
-        isShow:false,
-        dialogOut:false,
-        dialogMsg:""
+        songList: '',
+        newMusic: '',
+        mvCon: '',
+        hostCon: '',
+        isShow: false,
+        dialogOut: false,
+        dialogMsg: ''
       }
     },
     components: {
@@ -141,75 +141,75 @@
       loading
     },
     computed: {
-      swiper() {
+      swiper () {
         return this.$refs.mySwiper.swiper
       }
     },
-    created(){
-      const that = this;
+    created () {
+      const that = this
       // 获取banner
       const promise1 = getDefaultBanner().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          that.banner = getData.banners;
-        }else{
-          console.log("error")
+        if (res.status === 200) {
+          let getData = res.data
+          that.banner = getData.banners
+        } else {
+          console.log('error')
         }
       })
-      //获取推荐歌单
+      // 获取推荐歌单
       const promise2 = getPersonalized().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
+        if (res.status === 200) {
+          let getData = res.data
           console.log(res)
-          that.songList = getData.result;
-        }else{
-          console.log("error")
+          that.songList = getData.result
+        } else {
+          console.log('error')
         }
       })
-      //获取最新音乐
+      // 获取最新音乐
       const promise3 = getNewSong().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
+        if (res.status === 200) {
+          let getData = res.data
           console.log(res)
-          if (getData.result.length>9){
-            getData.result.length = 9;
+          if (getData.result.length > 9) {
+            getData.result.length = 9
           }
-          that.newMusic = getData.result;
-        }else{
-          console.log("error")
+          that.newMusic = getData.result
+        } else {
+          console.log('error')
         }
       })
-      //获取推荐MV
+      // 获取推荐MV
       const promise4 = getMv().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
+        if (res.status === 200) {
+          let getData = res.data
           console.log(res)
-          that.mvCon = getData.result;
-        }else{
-          console.log("error")
+          that.mvCon = getData.result
+        } else {
+          console.log('error')
         }
       })
-      //获取主播电台
+      // 获取主播电台
       const promise5 = getDjProgram().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
+        if (res.status === 200) {
+          let getData = res.data
           console.log(res)
-          that.hostCon = getData.result;
-        }else{
-          console.log("error")
+          that.hostCon = getData.result
+        } else {
+          console.log('error')
         }
       })
       Promise.all([promise1, promise2, promise3, promise4, promise5]).then(values => {
-        that.isShow = true;
-        setTimeout(function(){
-          that.getHeight();
-          window.onresize= function () {
+        that.isShow = true
+        setTimeout(function () {
+          that.getHeight()
+          window.onresize = function () {
             that.getHeight()
           }
-        },20)
+        }, 20)
       }, reason => {
         console.log(reason)
-      });
+      })
     },
     // watch函数监测路由的变化,控制页面跳转
     watch: {
@@ -222,26 +222,26 @@
       }
     },
     methods: {
-      getHeight:function(){
-        let obj = document.getElementById("accountCenter");
-        this.accountHeight = obj.clientWidth;
+      getHeight: function () {
+        let obj = document.getElementById('accountCenter')
+        this.accountHeight = obj.clientWidth
       },
-      switchViews:function(type){
-        var _this = this;
-        switch (type){
+      switchViews: function (type) {
+        var _this = this
+        switch (type) {
           case 1:
-            _this.dialogMsg = "此功能暂未开通，敬请期待"
-            _this.dialogOut = true;
-            //_this.$router.push({ path: '/fm'})
-            break;
+            _this.dialogMsg = '此功能暂未开通，敬请期待'
+            _this.dialogOut = true
+          // _this.$router.push({ path: '/fm'})
+            break
           case 2:
-            _this.$router.push({ path: '/playlist'})
-            break;
+            _this.$router.push({path: '/playlist'})
+            break
           case 3:
-            _this.$router.push({ path: '/recsongs' })
-            break;
+            _this.$router.push({path: '/recsongs'})
+            break
           default:
-            break;
+            break
         }
       }
     }

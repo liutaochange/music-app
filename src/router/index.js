@@ -13,10 +13,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path:'/',
-      name:'Index',
+      path: '/',
+      name: 'Index',
       component: Index,
-      children:[
+      children: [
         {
           path: '/index',
           name: 'home',
@@ -41,30 +41,30 @@ export default new Router({
           ]
         },
         {
-          path:'/mine',
-          name:'Mine',
+          path: '/mine',
+          name: 'Mine',
           component: Mine
         }
       ]
     },
     {
-      path:'/fm',
-      name:'Fm',
+      path: '/fm',
+      name: 'Fm',
       component: Fm
     },
     {
-      path:'/playlist',
-      name:'PlayList',
+      path: '/playlist',
+      name: 'PlayList',
       component: PlayList
     },
     {
-      path:'/recsongs',
-      name:'RecSongs',
+      path: '/recsongs',
+      name: 'RecSongs',
       component: RecSongs
     },
     {
-      path:'/login',
-      name:'login',
+      path: '/login',
+      name: 'login',
       component: Login
     }
   ]

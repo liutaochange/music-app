@@ -20,18 +20,18 @@
 <script>
   import { login } from '../api/index'
   export default{
-    data(){
+    data () {
       return {
         phone: '',
-        password:'',
+        password: '',
         model: 12,
         status: ''
       }
     },
-    methods:{
-      handleClick:function(){
-        var _this = this;
-        var reg_phone = /^1[34578]\d{9}$/;
+    methods: {
+      handleClick: function () {
+        var _this = this
+        let regPhone = /^1[3456789]\d{9}$/
         let options = {
           id: 'my-toast',
           horizontalPosition: 'center',
@@ -40,24 +40,24 @@
           mode: 'override',
           transition: 'slide-down'
         }
-        if(_this.phone == ''){
-          _this.$toast('手机号不能为空',options);
-          return false;
-        }else if(!reg_phone.test(_this.phone)){
-          _this.$toast('手机号不合规则',options);
-          return false;
-        }else if(_this.password == ''){
-          _this.$toast('密码不能为空',options);
-          return false;
-        }else {
-          login(_this.phone,_this.password).then(res =>{
-            if(res.status == 200){
-             window.history.go(-1);
+        if (_this.phone === '') {
+          _this.$toast('手机号不能为空', options)
+          return false
+        } else if (!regPhone.test(_this.phone)) {
+          _this.$toast('手机号不合规则', options)
+          return false
+        } else if (_this.password === '') {
+          _this.$toast('密码不能为空', options)
+          return false
+        } else {
+          login(_this.phone, _this.password).then(res => {
+            if (res.status === 200) {
+              window.history.go(-1)
             }
           })
         }
       },
-      goBack:function(){
+      goBack: function () {
         window.history.go(-1)
       }
     }

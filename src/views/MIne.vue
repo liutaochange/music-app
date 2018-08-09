@@ -25,7 +25,14 @@
 
 </template>
 <script>
-
+export default {
+  data () {
+    return {
+      list: [],
+      subcount: {}
+    }
+  }
+}
 </script>
 <style lang="less" scoped>
   .mine_head{

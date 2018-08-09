@@ -30,32 +30,32 @@
     </div>
 </template>
 <script>
-  import loading from "../components/loading"
-  import { getTopList } from "../api/index"
+  import loading from '../components/loading'
+  import { getTopList } from '../api/index'
   export default{
-    data(){
+    data () {
       return {
-        topList:"",
-        isShow:false
+        topList: '',
+        isShow: false
       }
     },
     components: {
       loading
     },
-    mounted(){
-      const _this = this;
+    mounted () {
+      const _this = this
       const promiseList = getTopList().then(res => {
-        if(res.status == 200){
-          _this.topList = res.data;
-        }else{
-          console.log("error")
+        if (res.status === 200) {
+          _this.topList = res.data
+        } else {
+          console.log('error')
         }
       })
       Promise.all([promiseList]).then(values => {
-        _this.isShow = true;
+        _this.isShow = true
       }, reason => {
-        console.log("error")
-      });
+        console.log('error')
+      })
     }
   }
 </script>

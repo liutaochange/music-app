@@ -41,45 +41,45 @@
   import dialogOut from '../components/diaLog'
   import { getRecomendSongs } from '../api/index'
   export default{
-    data(){
+    data () {
       return {
         text: (new Date()).getDate(),
-        allSong:0,
-        isShow:false,
-        songsList:[],
-        dialogOut:false,
-        dialogMsg:""
+        allSong: 0,
+        isShow: false,
+        songsList: [],
+        dialogOut: false,
+        dialogMsg: ''
       }
     },
     components: {
       loading,
       dialogOut
     },
-    mounted(){
-      var _this = this;
+    mounted () {
+      var _this = this
       // 获取每日推荐歌曲
       getRecomendSongs().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          _this.isShow = true;
-          if(getData.code==301){
-            _this.dialogMsg = "尚未登录，请先登录";
-            _this.dialogOut = true;
-            setTimeout(function(){
-              _this.$router.push({ path: '/login'});
-            },1500)
-            return false;
+        if (res.status === 200) {
+          let getData = res.data
+          _this.isShow = true
+          if (getData.code === 301) {
+            _this.dialogMsg = '尚未登录，请先登录'
+            _this.dialogOut = true
+            setTimeout(function () {
+              _this.$router.push({path: '/login'})
+            }, 1500)
+            return false
           }
-          _this.songsList = getData.recommend;
-          _this.allSong = getData.recommend.length;
-        }else{
-          console.log("error")
+          _this.songsList = getData.recommend
+          _this.allSong = getData.recommend.length
+        } else {
+          console.log('error')
         }
       })
     },
-    methods:{
-      goBack:function(){
-        window.history.go(-1);
+    methods: {
+      goBack: function () {
+        window.history.go(-1)
       }
     }
   }

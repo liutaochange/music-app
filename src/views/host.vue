@@ -71,82 +71,87 @@
   </div>
 </template>
 <script>
-  import loading from "../components/loading"
-  import {getDjradio,getDjradioPro,getDjradioRec,getDjradioHot} from "../api/index"
+  import loading from '../components/loading'
+  import {getDjradio, getDjradioPro, getDjradioRec, getDjradioHot} from '../api/index'
   export default{
-    data(){
+    data () {
       return {
         swiperOption: {
-          initialSlide :0,
+          initialSlide: 0,
           autoplay: 3500,
-          direction : 'horizontal',
-          pagination : '.swiper-pagination',
-          paginationClickable :true,
-          mousewheelControl : false,
-          observeParents:true,
-          loop:true
+          direction: 'horizontal',
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          mousewheelControl: false,
+          observeParents: true,
+          loop: true
         },
-        catelist:"",//主播电台分类
-        recommend:"",//推荐节目
-        djcate:"",//精选电台
-        hotDj: {  //热门电台
+        catelist: '', // 主播电台分类
+        recommend: '', // 推荐节目
+        djcate: '', // 精选电台
+        hotDj: {  // 热门电台
           idx: 2,
-          list: "",
+          list: '',
           limit: 20,
           offset: 0
         },
-        isShow:false
+        isShow: false
       }
     },
     components: {
       loading
     },
-    mounted(){
-      var _this = this;
-      // 获取电台分类
-      const promiseDj = getDjradio().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          _this.catelist = getData.categories;
-        }else{
-          console.log("error")
-        }
-      })
-      //获取推荐节目
-      const promiseDjradio = getDjradioPro().then(res => {
-        if(res.status == 200){
-          _this.recommend = res.data;
-        }else{
-          console.log("error")
-        }
-      })
-      //获取精选电台
-      const promiseDjrec = getDjradioRec().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          if (getData.djRadios.length>6){
-            getData.djRadios.length = 6;
+    created () {
+      this._getData()
+    },
+    methods: {
+      _getData () {
+        var _this = this
+        // 获取电台分类
+        const promiseDj = getDjradio().then(res => {
+          if (res.status === 200) {
+            let getData = res.data
+            _this.catelist = getData.categories
+          } else {
+            console.log('error')
           }
-          _this.djcate = getData;
-        }else{
-          console.log("error")
-        }
-      })
-      //获取热门电台
-      const promiseDjhot = getDjradioHot().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          _this.hotDj.list = getData;
-          _this.hotDj.offset = getData.djRadios.length;
-        }else{
-          console.log("error")
-        }
-      })
-      Promise.all([promiseDj, promiseDjradio, promiseDjrec, promiseDjhot]).then(values => {
-        _this.isShow = true;
-      }, reason => {
-        console.log("error")
-      });
+        })
+        // 获取推荐节目
+        const promiseDjradio = getDjradioPro().then(res => {
+          if (res.status === 200) {
+            _this.recommend = res.data
+          } else {
+            console.log('error')
+          }
+        })
+        // 获取精选电台
+        const promiseDjrec = getDjradioRec().then(res => {
+          if (res.status === 200) {
+            let getData = res.data
+            if (getData.djRadios.length > 6) {
+              getData.djRadios.length = 6
+            }
+            _this.djcate = getData
+          } else {
+            console.log('error')
+          }
+        })
+        // 获取热门电台
+        const promiseDjhot = getDjradioHot().then(res => {
+          if (res.status === 200) {
+            let getData = res.data
+            _this.hotDj.list = getData
+            _this.hotDj.offset = getData.djRadios.length
+          } else {
+            console.log('error')
+          }
+        })
+        Promise.all([promiseDj, promiseDjradio, promiseDjrec, promiseDjhot]).then(values => {
+          _this.isShow = true
+        }, reason => {
+          console.log('error')
+        })
+      }
     }
   }
 </script>

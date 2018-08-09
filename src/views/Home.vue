@@ -18,16 +18,15 @@
   </div>
 </template>
 <script>
-  //导入子组件
-  import recommend from './recommend';
-  import songList from './songList';
-  import host from './host';
-  import rank from './rank';
-  import store from '../store/index'
+  // 导入子组件
+  import recommend from './recommend'
+  import songList from './songList'
+  import host from './host'
+  import rank from './rank'
   export default {
     data () {
       return {
-        activeTab: "" //默认打开第一个  个性推荐
+        activeTab: '' // 默认打开第一个  个性推荐
       }
     },
     components: {
@@ -37,19 +36,19 @@
       rank
     },
     created () {
-      const home_index = this.$store.state.home_index;
-      this.activeTab = home_index;
+      const hIndex = this.$store.state.home_index
+      this.activeTab = hIndex
       // created函数 监测路由信息,防止页面刷新tab高亮错误
-      var tmpArr = this.$route.path.split('/');
+      var tmpArr = this.$route.path.split('/')
       if (tmpArr[1] === 'index') {
-        this.handleTabChange(home_index)
+        this.handleTabChange(hIndex)
       }
     },
     // watch函数监测路由的变化,保持tab面板的高亮位置正确
     watch: {
       '$route' (to, from) {
         const path = to.path
-        var tmpArr = path.split('/');
+        var tmpArr = path.split('/')
         if (tmpArr[1] === 'index') {
           this.handleTabChange(tmpArr[2])
         }
@@ -57,9 +56,9 @@
     },
     methods: {
       handleTabChange (val) {
-        this.activeTab = val;
-        this.$store.commit('setIndex',val);
-        this.$router.push({ path: '/index/' + val });
+        this.activeTab = val
+        this.$store.commit('setIndex', val)
+        this.$router.push({ path: '/index/' + val })
       }
     }
   }
@@ -75,10 +74,10 @@
   .view-tabs {
     background-color: #fff;
     color: rgba(0,0,0,.87);
-    >.mu-tab-link {
+    &>.mu-tab-link {
        color: rgba(102,102,102,1);
      }
-    >.mu-tab-active{
+    &>.mu-tab-active{
        color: @primaryColor;
      }
   }

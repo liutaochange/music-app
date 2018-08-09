@@ -9,14 +9,14 @@
 
 <script>
   export default {
-    props:{
-      show:{
+    props: {
+      show: {
         type: Boolean,
         default: true
       },
-      dialogMsg:{
-        type:String,
-        default:''
+      dialogMsg: {
+        type: String,
+        default: ''
       }
     },
     methods: {

@@ -23,11 +23,11 @@
 </template>
 <script>
   import loading from '../components/loading'
-  import {getCatlist,getPlayList} from "../api/index"
+  import {getCatlist, getPlayList} from '../api/index'
   export default{
-    data(){
+    data () {
       return {
-        msg: "songList",
+        msg: 'songList',
         isadd: false,
         playlist: {
           idx: 1,
@@ -39,7 +39,7 @@
           res: {},
           checked: {}
         },
-        isShow:false
+        isShow: false
       }
     },
     methods: {
@@ -48,40 +48,40 @@
     components: {
       loading
     },
-    mounted(){
-      var that = this;
-      //获取全部歌单
+    mounted () {
+      var that = this
+      // 获取全部歌单
       const pomiseList = getCatlist().then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          that.catelist =  {
+        if (res.status === 200) {
+          let getData = res.data
+          that.catelist = {
             res: getData,
             checked: getData.all
-          };
-        }else{
-          console.log("error")
+          }
+        } else {
+          console.log('error')
         }
       })
-      //分类歌单列表
-      const promisePlay = getPlayList(that.playlist.limit,that.playlist.offset,that.catelist.checked.name).then(res => {
-        if(res.status == 200){
+      // 分类歌单列表
+      const promisePlay = getPlayList(that.playlist.limit, that.playlist.offset, that.catelist.checked.name).then(res => {
+        if (res.status === 200) {
           if (!that.isadd) {
             that.playlist.list = res.data
-            that.isadd = true;
+            that.isadd = true
           } else {
-            res.playlists = that.playlist.list.playlists.concat(res.data.playlists);
+            res.playlists = that.playlist.list.playlists.concat(res.data.playlists)
             that.playlist.list = res.data
           }
-          that.playlist.offset += res.data.playlists.length;
-        }else{
-          console.log("error")
+          that.playlist.offset += res.data.playlists.length
+        } else {
+          console.log('error')
         }
       })
       Promise.all([pomiseList, promisePlay]).then(values => {
-        that.isShow = true;
+        that.isShow = true
       }, reason => {
-        console.log("error")
-      });
+        console.log('error')
+      })
     }
   }
 </script>

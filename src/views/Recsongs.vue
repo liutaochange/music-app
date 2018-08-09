@@ -57,44 +57,44 @@
   </div>
 </template>
 <script>
-  import { getHotList } from "../api/index"
-  import loading from "../components/loading"
+  import { getHotList } from '../api/index'
+  import loading from '../components/loading'
   export default{
-    data(){
+    data () {
       return {
         allSong: 0,
-        nickname:'',
-        avatarUrl:'',
-        songsList:[],
-        isShow:false,
+        nickname: '',
+        avatarUrl: '',
+        songsList: [],
+        isShow: false,
         id: 3778678,
         limit: 1000,
-        list:{}
+        list: {}
       }
     },
-    components:{
+    components: {
       loading
     },
-    created(){
-      var _this = this;
+    created () {
+      var _this = this
       // 获取云音乐热歌榜
-      getHotList(_this.id,_this.limit).then(res => {
-        if(res.status == 200){
-          let getData = res.data;
-          _this.list = getData.playlist;
-          _this.songsList = getData.playlist.tracks;
-          _this.allSong = getData.playlist.trackCount;
-          _this.avatarUrl = getData.playlist.creator.avatarUrl;
-          _this.nickname = getData.playlist.creator.nickname;
-          _this.isShow = true;
-        }else{
-          console.log("error")
+      getHotList(_this.id, _this.limit).then(res => {
+        if (res.status === 200) {
+          let getData = res.data
+          _this.list = getData.playlist
+          _this.songsList = getData.playlist.tracks
+          _this.allSong = getData.playlist.trackCount
+          _this.avatarUrl = getData.playlist.creator.avatarUrl
+          _this.nickname = getData.playlist.creator.nickname
+          _this.isShow = true
+        } else {
+          console.log('error')
         }
       })
     },
     methods: {
-      goBack: function(){
-        window.history.go(-1);
+      goBack: function () {
+        window.history.go(-1)
       }
     }
   }

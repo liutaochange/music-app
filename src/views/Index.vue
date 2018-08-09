@@ -13,10 +13,9 @@
   </div>
 </template>
 <script>
-  //导入子组件
-  import Home from './Home';
-  import Mine from './Mine';
-  import store from '../store/index'
+  // 导入子组件
+  import Home from './Home'
+  import Mine from './Mine'
   export default {
     name: 'Index',
     data () {
@@ -30,21 +29,21 @@
     },
     methods: {
       handleChange (val) {
-        this.bottomNav = val;
-        this.$store.commit('setIndexValue',val);
+        this.bottomNav = val
+        this.$store.commit('setIndexValue', val)
       }
     },
-    created(){
+    created () {
       // created函数 监测路由信息,防止页面刷新tab高亮错误
-      const home_index = this.$store.state.index_value;
-      this.bottomNav = home_index;
-      var tmpArr = this.$route.path.split('/');
-      if (tmpArr[1] === "") {
+      const hIndex = this.$store.state.index_value
+      this.bottomNav = hIndex
+      var tmpArr = this.$route.path.split('/')
+      if (tmpArr[1] === '') {
         this.$router.push({ path: '/index/recommend' })
       }
-      const getUrl = this.$route.path;
-      if(getUrl.indexOf("mine")>-1){
-        this.handleChange("mymusic");
+      const getUrl = this.$route.path
+      if (getUrl.indexOf('mine') > -1) {
+        this.handleChange('mymusic')
       }
     }
   }
