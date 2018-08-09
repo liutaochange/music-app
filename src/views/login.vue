@@ -18,7 +18,9 @@
  </div>
 </template>
 <script>
-  import { login } from '../api/index'
+  import { setItem } from 'utils/store.js'
+  import { login } from '../api/index.js'
+  import { USERKEY } from 'api/config.js'
   export default{
     data () {
       return {
@@ -52,13 +54,14 @@
         } else {
           login(_this.phone, _this.password).then(res => {
             if (res.status === 200) {
-              window.history.go(-1)
+              setItem(USERKEY, JSON.stringify(res.data.i))
+              _this.$router.go(-1)
             }
           })
         }
       },
       goBack: function () {
-        window.history.go(-1)
+        this.$router.go(-1)
       }
     }
   }

@@ -10,11 +10,11 @@ export default {
   // 获取最新音乐
   getNewSong: '/personalized/newsong',
   // 获取推荐MV
-  getMv: 'personalized/mv',
+  getMv: '/personalized/mv',
   // 获取主播电台
-  getDjProgram: 'personalized/djprogram',
+  getDjProgram: '/personalized/djprogram',
   // 获取全部歌单
-  getCatlist: 'playlist/catlist',
+  getCatlist: '/playlist/catlist',
   // 获取分类歌单列表
   getPlayList: '/top/playlist',
   // 获取主播电台分类
@@ -32,5 +32,11 @@ export default {
   // 云音乐热歌榜
   getHotList: '/playlist/detail',
   // 登录
-  login: '/login/cellphone'
+  login: '/login/cellphone',
+  // 获取用户信息
+  getUserSubcount: '/user/subcount',
+  // 获取用户歌曲列表
+  getUserPlayList: '/user/playlist',
+  // 获取用户收藏列表
+  getLikeList: '/likelist'
 }
